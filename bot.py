@@ -13,6 +13,7 @@ import random
 import string
 
 TOKEN = os.getenv("BOT_TOKEN")
+print("TOKEN:", TOKEN)
 ADMIN_ID = 8357823603
 
 
@@ -317,5 +318,8 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
 print("Bot running...")
 if __name__ == "__main__":
-    print("Bot running...")
-    app.run_polling()
+    try:
+        print("Bot starting...")
+        app.run_polling()
+    except Exception as e:
+        print("CRASH ERROR:", e)
