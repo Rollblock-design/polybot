@@ -13,7 +13,6 @@ import random
 import string
 
 TOKEN = os.getenv("BOT_TOKEN")
-print("TOKEN:", TOKEN)
 ADMIN_ID = 8357823603
 
 
