@@ -12,7 +12,7 @@ import os
 import random
 import string
 
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 8357823603
 
 
