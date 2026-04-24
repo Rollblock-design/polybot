@@ -7,11 +7,16 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b'Bot is alive')
 
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
+
 def run_web():
     server = HTTPServer(('0.0.0.0', 10000), Handler)
     server.serve_forever()
 
 threading.Thread(target=run_web).start()
+
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
