@@ -91,7 +91,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear()
 
     await update.message.reply_text(
-        "✅ Welcome to PolyBot\nYour secure companion for rapid Polymarket trades.\n\nGet Started. Select a function:",
+        "✅ Welcome to PolyBGun\nYour secure companion for rapid Polymarket trades.\n\nGet Started. Select a function:",
         reply_markup=home_kb()
     )
 
