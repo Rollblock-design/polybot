@@ -91,7 +91,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear()
 
     await update.message.reply_text(
-        "✅ Welcome to PolyGun\nYour secure companion for rapid Polymarket trades.\n\nGet Started. Select a function:",
+        "✅ Welcome to PolyGun\nYour secure companion for rapid Polymarket trades.\n\n📊 Current Positions: 0 \n
+        💰 Available Balance: $0.00 \n
+        📄 Active Orders: 0\n
+        💼 Total Net Worth: $0.00\n\n
+        Get Started. Select a function:",
         reply_markup=home_kb()
     )
 
