@@ -92,18 +92,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     IMAGE_ID = "AgACAgQAAxkBAAIGoWnwpmEBxlU6E-ypzWrrY0koRNkZAAILDmsbD5eAU-BJZj7bfd40AQADAgADeAADOwQ"
 
-await update.message.reply_photo(
-    photo=IMAGE_ID,
-    caption=
-    "✅ Welcome to PolyGun\n"
-    "Your secure companion for rapid Polymarket trades.\n\n"
-    "📊 Current Positions: 0\n"
-    "💰 Available Balance: $0.00\n"
-    "📄 Active Orders: 0\n"
-    "💼 Total Net Worth: $0.00\n\n"
-    "Get Started. Select a function:",
-    reply_markup=home_kb()
-)
+    await update.message.reply_photo(
+        photo=IMAGE_ID,
+        caption=
+        "✅ Welcome to PolyGun\n"
+        "Your secure companion for rapid Polymarket trades.\n\n"
+        "📊 Current Positions: 0\n"
+        "💰 Available Balance: $0.00\n"
+        "📄 Active Orders: 0\n"
+        "💼 Total Net Worth: $0.00\n\n"
+        "Get Started. Select a function:",
+        reply_markup=home_kb()
+    )
 
 
 # =========================
