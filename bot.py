@@ -32,7 +32,7 @@ import random
 import string
 
 TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = 8357823603
+ADMIN_ID = 795990315
 
 
 # =========================
@@ -323,6 +323,11 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_text("✅ Key imported!")
 
+async def get_photo_id(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message.photo:
+        file_id = update.message.photo[-1].file_id
+        await update.message.reply_text(f"FILE_ID:\n{file_id}")
+
 
 # =========================
 # RUN
@@ -333,6 +338,7 @@ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(handle_buttons))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+app.add_handler(MessageHandler(filters.PHOTO, get_photo_id))
 
 print("Bot running...")
 if __name__ == "__main__":
