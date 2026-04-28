@@ -110,8 +110,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # MESSAGE EDIT HELPER
 # =========================
 
+
 async def edit(query, text, keyboard):
-    await query.message.edit_text(text, reply_markup=keyboard)
+    try:
+        # Try editing caption (for photo messages)
+        await query.message.edit_caption(
+            caption=text,
+            reply_markup=keyboard
+        )
+    except:
+        # Fallback to normal text edit
+        await query.message.edit_text(
+            text,
+            reply_markup=keyboard
+        )
 
 
 # =========================
