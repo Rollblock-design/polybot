@@ -332,10 +332,37 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # RUN (WEBHOOK)
 # =========================
 
+from telegram.ext import ApplicationBuilder
+from aiohttp import web
+
+TOKEN = os.getenv("BOT_TOKEN")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 PORT = int(os.environ.get("PORT", 10000))
 
+
+# ✅ CREATE APP (THIS WAS MISSING IN YOUR CODE)
+app = ApplicationBuilder().token(TOKEN).build()
+
+
+# =========================
+# HEALTH CHECK (UPTIME ROBOT)
+# =========================
+async def health(request):
+    return web.Response(text="Bot is alive")
+
+app.web_app.router.add_get("/", health)
+
+
+# =========================
+# ADD HANDLERS
+# =========================
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CallbackQueryHandler(handle_buttons))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+
+
 print("Starting webhook...")
+
 
 if __name__ == "__main__":
     app.run_webhook(
