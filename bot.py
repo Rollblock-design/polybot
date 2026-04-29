@@ -1,22 +1,3 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import threading
-
-class Handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b'Bot is alive')
-
-    def do_HEAD(self):
-        self.send_response(200)
-        self.end_headers()
-
-def run_web():
-    server = HTTPServer(('0.0.0.0', 10000), Handler)
-    server.serve_forever()
-
-threading.Thread(target=run_web).start()
-
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
@@ -361,6 +342,31 @@ print("Bot running...")
 if __name__ == "__main__":
     try:
         print("Bot starting...")
-        app.run_polling()
     except Exception as e:
         print("CRASH ERROR:", e)
+import asyncio
+from telegram.ext import Application
+
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
+PORT = int(os.environ.get("PORT", 10000))
+
+
+async def main():
+    await app.initialize()
+
+    # Set webhook
+    await app.bot.set_webhook(url=f"{WEBHOOK_URL}/{TOKEN}")
+
+    print("Webhook set!")
+
+    # Run webhook server
+    await app.run_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        url_path=TOKEN,
+        webhook_url=f"{WEBHOOK_URL}/{TOKEN}",
+    )
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
