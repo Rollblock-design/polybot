@@ -351,6 +351,27 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
 print("Starting webhook...")
 
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import threading
+
+PORT = int(os.environ.get("PORT", 10000))
+
+
+# =========================
+# UPTIME SERVER (FOR UPTIMEROBOT)
+# =========================
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is alive")
+
+def run_server():
+    server = HTTPServer(("0.0.0.0", PORT), Handler)
+    server.serve_forever()
+
+threading.Thread(target=run_server).start()
+
 
 if __name__ == "__main__":
     app.run_webhook(
