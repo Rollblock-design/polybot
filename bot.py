@@ -326,36 +326,20 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_text("✅ Key imported!")
 
-
-
 # =========================
-# RUN (WEBHOOK)
+# RUN (WEBHOOK - CORRECT PTB 20.7 STYLE)
 # =========================
 
-from telegram.ext import ApplicationBuilder
-from aiohttp import web
+import os
 
 TOKEN = os.getenv("BOT_TOKEN")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 PORT = int(os.environ.get("PORT", 10000))
 
 
-# ✅ CREATE APP (THIS WAS MISSING IN YOUR CODE)
 app = ApplicationBuilder().token(TOKEN).build()
 
-
-# =========================
-# HEALTH CHECK (UPTIME ROBOT)
-# =========================
-async def health(request):
-    return web.Response(text="Bot is alive")
-
-app.web_app.router.add_get("/", health)
-
-
-# =========================
-# ADD HANDLERS
-# =========================
+# handlers
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(handle_buttons))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
