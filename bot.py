@@ -339,7 +339,11 @@ PORT = int(os.environ.get("PORT", 10000))
 
 app = ApplicationBuilder().token(TOKEN).build()
 
+async def start_health(update, context):
+    await update.message.reply_text("Bot is alive")
+
 # handlers
+app.add_handler(CommandHandler("ping", start_health))
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(handle_buttons))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
