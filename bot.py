@@ -329,34 +329,18 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # =========================
-# RUN
+# RUN (WEBHOOK)
 # =========================
 
-app = ApplicationBuilder().token(TOKEN).build()
-
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CallbackQueryHandler(handle_buttons))
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
-
-print("Bot running...")
-if __name__ == "__main__":
-    try:
-        print("Bot starting...")
-    except Exception as e:
-        print("CRASH ERROR:", e)
-import asyncio
-from telegram.ext import Application
-
-WEBHOOK_URL = os.getenv("WEBHOOK_URL")
-PORT = int(os.environ.get("PORT", 10000))
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 PORT = int(os.environ.get("PORT", 10000))
 
 print("Starting webhook...")
 
-app.run_webhook(
-    listen="0.0.0.0",
-    port=PORT,
-    url_path=TOKEN,
-    webhook_url=f"{WEBHOOK_URL}/{TOKEN}",
-)
+if __name__ == "__main__":
+    app.run_webhook(
+        listen="0.0.0.0",
+        port=PORT,
+        url_path=TOKEN,
+        webhook_url=f"{WEBHOOK_URL}/{TOKEN}",
+    )
