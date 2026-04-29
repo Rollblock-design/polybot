@@ -349,24 +349,14 @@ from telegram.ext import Application
 
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 PORT = int(os.environ.get("PORT", 10000))
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
+PORT = int(os.environ.get("PORT", 10000))
 
+print("Starting webhook...")
 
-async def main():
-    await app.initialize()
-
-    # Set webhook
-    await app.bot.set_webhook(url=f"{WEBHOOK_URL}/{TOKEN}")
-
-    print("Webhook set!")
-
-    # Run webhook server
-    await app.run_webhook(
-        listen="0.0.0.0",
-        port=PORT,
-        url_path=TOKEN,
-        webhook_url=f"{WEBHOOK_URL}/{TOKEN}",
-    )
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+app.run_webhook(
+    listen="0.0.0.0",
+    port=PORT,
+    url_path=TOKEN,
+    webhook_url=f"{WEBHOOK_URL}/{TOKEN}",
+)
